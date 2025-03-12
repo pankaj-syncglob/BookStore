@@ -154,18 +154,23 @@ public class BookStoreHttpApiHostModule : AbpModule
     {
         context.Services.AddCors(options =>
         {
-            options.AddPolicy("AllowAllOrigins", builder =>
-            {
-                builder.WithOrigins("http://35.91.120.168")
-                       .AllowAnyHeader()
-                       .AllowAnyMethod()
-                       .WithExposedHeaders("Content-Disposition")
-                       .AllowCredentials();
+            options.AddDefaultPolicy(builder =>
+               {
+                builder
+                    .WithOrigins(
+                        configuration["App:CorsOrigins"]
+                            .Split(",", StringSplitOptions.RemoveEmptyEntries)
+                            .Select(o => o.RemovePostFix("/"))
+                            .ToArray()
+                    )
+                    .WithAbpExposedHeaders()
+                    .SetIsOriginAllowedToAllowWildcardSubdomains()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
             });
         });
     }
-
-
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
     {
