@@ -167,6 +167,7 @@ public class BookStoreHttpApiHostModule : AbpModule
                     .SetIsOriginAllowedToAllowWildcardSubdomains()
                     .AllowAnyHeader()
                     .AllowAnyMethod()
+                    .AllowAnyOrigin()
                     .AllowCredentials();
             });
         });

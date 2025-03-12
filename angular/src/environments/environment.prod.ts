@@ -1,6 +1,6 @@
 import { Environment } from '@abp/ng.core';
 
-const baseUrl = 'http://localhost:4200';
+const baseUrl = 'http://35.91.120.168'; // Your EC2 Public IP
 
 export const environment = {
   production: true,
@@ -10,16 +10,16 @@ export const environment = {
     logoUrl: '',
   },
   oAuthConfig: {
-    issuer: 'https://localhost:44367/',
-    redirectUri: baseUrl,
+    issuer: 'https://35.91.120.168:5000', // API URL
+    redirectUri: baseUrl, 
     clientId: 'BookStore_App',
     responseType: 'code',
     scope: 'offline_access BookStore',
-    requireHttps: true
+    requireHttps: false // Change to true if using HTTPS
   },
   apis: {
     default: {
-      url: 'https://localhost:44367',
+      url: 'https://35.91.120.168:5000/', // API URL
       rootNamespace: 'Acme.BookStore',
     },
   },
