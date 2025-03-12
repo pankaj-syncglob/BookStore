@@ -154,16 +154,17 @@ public class BookStoreHttpApiHostModule : AbpModule
     {
         context.Services.AddCors(options =>
         {
-            options.AddDefaultPolicy(builder =>
+            options.AddPolicy("AllowAllOrigins", builder =>
             {
-                builder
-                    .WithOrigins("http://35.91.120.168") // Specify frontend origin
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials(); // Allows cookies & authorization headers
+                builder.WithOrigins("http://35.91.120.168")
+                       .AllowAnyHeader()
+                       .AllowAnyMethod()
+                       .WithExposedHeaders("Content-Disposition")
+                       .AllowCredentials();
             });
         });
     }
+
 
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
