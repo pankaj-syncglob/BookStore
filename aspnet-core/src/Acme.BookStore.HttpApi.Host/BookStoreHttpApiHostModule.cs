@@ -134,21 +134,27 @@ public class BookStoreHttpApiHostModule : AbpModule
         });
     }
 
-    private static void ConfigureSwaggerServices(ServiceConfigurationContext context, IConfiguration configuration)
+    private void ConfigureSwaggerServices(ServiceConfigurationContext context, IConfiguration configuration)
     {
+        var authority = configuration["AuthServer:Authority"];
+        if (string.IsNullOrEmpty(authority))
+        {
+            throw new Exception("AuthServer:Authority is missing in configuration.");
+        }
+
         context.Services.AddAbpSwaggerGenWithOAuth(
-            configuration["AuthServer:Authority"],
+            authority,
             new Dictionary<string, string>
             {
-                    {"BookStore", "BookStore API"}
+            {"BookStore", "BookStore API"}
             },
             options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "BookStore API", Version = "v1" });
-                options.DocInclusionPredicate((docName, description) => true);
-                options.CustomSchemaIds(type => type.FullName);
-            });
+            }
+        );
     }
+
 
     private void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)
     {
