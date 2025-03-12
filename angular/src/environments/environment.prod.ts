@@ -19,7 +19,7 @@ export const environment = {
   },
   apis: {
     default: {
-      url: 'https://35.91.120.168:5000/', // API URL
+      url: 'https://35.91.120.168:5000', // API URL
       rootNamespace: 'Acme.BookStore',
     },
   },

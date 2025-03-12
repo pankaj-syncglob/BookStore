@@ -157,10 +157,10 @@ public class BookStoreHttpApiHostModule : AbpModule
             options.AddDefaultPolicy(builder =>
             {
                 builder
-                    .SetIsOriginAllowed(_ => true) // Allow all origins dynamically
+                    .WithOrigins("http://35.91.120.168") // Specify frontend origin
                     .AllowAnyHeader()
                     .AllowAnyMethod()
-                    .AllowCredentials(); // Allow cookies & auth headers
+                    .AllowCredentials(); // Allows cookies & authorization headers
             });
         });
     }
