@@ -191,8 +191,8 @@ public class BookStoreHttpApiHostModule : AbpModule
 
         app.UseCorrelationId();
         app.UseStaticFiles();
-        app.UseRouting();
         app.UseCors();
+        app.UseRouting();
         app.UseAuthentication();
         app.UseAbpOpenIddictValidation();
 
